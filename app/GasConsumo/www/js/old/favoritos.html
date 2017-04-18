@@ -1,0 +1,45 @@
+<ion-view view-title="Favoritos">
+    <ion-content>
+        <div id="Resultado" ng-style="displayTabla">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Seleccionar</th>
+                        <th>Predefinido</th>
+                        <th>Marca</th>
+                        <th>Submodelo</th>
+                        <th>Año modelo</th>
+                        <th>Transmision</th>
+                        <th>Combustible</th>
+                        <th>Rendimiento (km/lt)</th>
+                        <th>Emisión CO2</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="vehiculo in vehiculos">
+                    <td>
+                        <input type="checkbox" class="filled-in" ng-model="vehiculo.selected" ng-change="notAll()" />
+                        <label for="filled-in-box{{vehiculo.id}}"></label>
+                    </td>
+                    <td> 
+                        <input type="checkbox" class="filled-in" ng-model="vehiculo.predefinido" ng-change="changePrederteminado(vehiculo)" />
+                    </td>
+
+                    <td>{{vehiculo.nombre}}</td>
+                    <td>{{vehiculo.marca}}</td>
+                    <td>{{vehiculo.ano}}</td>
+                    <td>{{vehiculo.transmision}}</td>
+                    <td>{{vehiculo.combustible}}</td>
+                    <td>{{vehiculo.rendimientoPorLitro}}</td>
+                    <td>{{vehiculo.emisionNOX}}</td>
+                </tr>
+            </table>  
+
+            <div style="margin-right: 12%;text-align: right;">
+                 <button class="btn btn-primary"  type="button" ng-click="actualizar()">Actualizar</button> 
+                <button class="btn btn-primary"  type="button" ng-click="eliminar()">Eliminar</button> 
+            </div>
+        </div>
+
+
+    </ion-content>
+</ion-view>
