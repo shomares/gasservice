@@ -1,0 +1,119 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a,
+nav .brand-logo {
+    color: #444;
+}
+
+p {
+    line-height: 2rem;
+}
+
+.button-collapse {
+    color: #26a69a;
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255,255,255,.9);
+}
+.parallax-container .section {
+    width: 100%;
+}
+
+@media only screen and (max-width : 992px) {
+    .parallax-container .section {
+        position: absolute;
+        top: 40%;
+    }
+    #index-banner .section {
+        top: 10%;
+    }
+}
+
+@media only screen and (max-width : 600px) {
+    #index-banner .section {
+        top: 0;
+    }
+}
+
+.icon-block {
+    padding: 0 15px;
+}
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+footer.page-footer {
+    margin: 0;
+}
+
+
+#map {
+    height: 102%;
+    width: 103%;
+
+}
+
+.buscador{
+        height: 25px;
+    width: 77%;
+    margin: 0 auto;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    
+}
+.bordertext{
+
+ border-radius: 34px 34px 34px 34px;
+-moz-border-radius: 34px 34px 34px 34px;
+-webkit-border-radius: 34px 34px 34px 34px;
+    
+    border: 0px solid #000000;
+        background-color: white;
+     width: 85%;
+    margin-top: 45px;
+    margin-left: 25%;
+        z-index: 100;     
+
+}
+.maps-frame {
+    height: 430px;
+
+}
+
+.kd-tabbed-vert.header-links .kd-tabbutton a {
+    color: #757575;
+    display: inline-block;
+    height: 100%;
+    padding: 0 24px;
+    width: 100%;
+}
+
+.kd-tabbed-vert.header-links .kd-tabbutton {
+    padding: 0;
+}
+
+.kd-tabbed-vert.header-links .kd-tabbutton.selected a {
+    color: #03a9f4;
+}
+
+.kd-tabbed-vert.header-links .kd-tabbutton a:focus {
+    text-decoration: none;
+}
+
+p.top-desc {
+    padding: 1em 1em .1em 1em;
+}
+
+p.bottom-desc {
+    padding: 0em 1em 1em 1em;
+}

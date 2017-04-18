@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title></title>
+
+        <link rel="manifest" href="manifest.json">
+
+        <!-- un-comment this code to enable service worker
+        <script>
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+              .then(() => console.log('service worker installed'))
+              .catch(err => console.log('Error', err));
+          }
+        </script>-->
+        <link href="css/materialize.css" rel="stylesheet">
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+        <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+        <link href="css/ionic.app.css" rel="stylesheet">
+        -->
+
+        <!-- ionic/angularjs js -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+
+        <!-- your app's js -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS15-zzDM5O0FpmI2EL6oY33dYxDuVmlE"></script>
+
+        <script src="lib/angular/ngroute.js"></script>
+        <script src="js/app.js"></script>
+        <script src="lib/angular/Eventos.js"></script>
+    </head>
+    <body ng-app="starter">
+
+        <nav class="white" role="navigation">
+            <div class="nav-wrapper container">
+                <a id="logo-container" href="#" class="brand-logo">Logo</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Navbar Link</a></li>
+                </ul>
+
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a href="#Mapa">Mapa</a></li>
+                    <li><a href="#Vehiculos">Buscar vehiculos</a></li>
+                    <li><a href="#Favoritos">Favoritos</a></li>
+
+                </ul>
+                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="p-a">
+                <div id="cover" class="cover">
+                </div>
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="section">
+            <!--   Icon Section   -->
+            <div class="row" ng-view>
+            </div>
+        </div>
+     
+        <!--  Scripts-->
+
+        <script src="js/factory/VehiculosFactory.js"></script>
+        <script src="js/factory/ResultadoFactory.js"></script>
+        <script src="js/controllers/resultadoCtrl.js"></script>
+        <script src="js/controllers/mapsCtrl.js"></script>
+        <script src="js/controllers/vehiculosCtrl.js"></script>
+        <script src="js/jquery/JQuery.js"></script>
+        <script src="js/materialize/materialize.js"></script>
+        <script src="js/materialize/init.js"></script>
+
+    </body>
+</html>

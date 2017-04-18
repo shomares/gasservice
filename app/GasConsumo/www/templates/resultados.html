@@ -1,0 +1,15 @@
+<div>
+    <h2>Resultados</h2>
+    <table>
+        <tr><td>Tiempo de recorrido (m): </td><td>{{result.tiempo}}</td></tr>
+        <tr><td>Kilometros recorridos (km): </td><td>{{result.distancia}}</td></tr>
+        <tr><td>Automovil: </td>
+        <select ng-model="automovil" ng-change="loadAutomovil(automovil)">
+            <option value="" ></option>
+            <option ng-repeat="option in favoritos" value="{{option.value}}">{{option.text}}</option>
+        </select>
+        </tr>
+        <tr><td>Gasolina requerida (lt): </td><td>{{result.litrosGasolina}}</td></tr>
+    </table>
+    <p>*El uso de gasolina es estimado y puede diferir con el consumo real</p>
+</div>
