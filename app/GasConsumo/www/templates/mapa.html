@@ -6,16 +6,16 @@
            width: 77%;
            margin: 0 auto;
            padding-bottom: 7px;
-           padding-top: 7px;">
+           padding-top: 7px;" ng-model="address" ng-click="openBuscador()" placeholder="buscar...">
+   
 </div>
 <div style="
     z-index: 100;
     position: absolute;
-    margin-top: 80%;
-    margin-left: 60%;
-">
-    <button ng-click="clearMap()">Eliminar</button>
-    <button ng-click="localizar()">Localizar</button>
-    <button ng-click="calcular()">Calcular</button>
+    
+margin-top: 125%;">
+    <button ng-click="clearMap()" class="button-icon"><i class="small material-icons">delete</i></button>
+    <button ng-click="localizar()" class="button-icon"><i class="small material-icons">my_location</i></button>
+    <button ng-click="calcular()" class="button-icon"><i class="small material-icons">done</i></button>
     
 </div>

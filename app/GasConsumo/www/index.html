@@ -15,9 +15,12 @@
               .catch(err => console.log('Error', err));
           }
         </script>-->
+        <link href="css/bootstrap.css" rel="stylesheet">
+
         <link href="css/materialize.css" rel="stylesheet">
         <link href="lib/ionic/css/ionic.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
         <link href="css/ionic.app.css" rel="stylesheet">
@@ -33,14 +36,19 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCS15-zzDM5O0FpmI2EL6oY33dYxDuVmlE"></script>
 
         <script src="lib/angular/ngroute.js"></script>
+        <script src="js/factory/Setting.js"></script>
+
+        <script src="lib/angular/ui-bootstrap.js"></script>
+        <script src="lib/angular/ui-bootsrap-tpl.js"></script>
         <script src="js/app.js"></script>
         <script src="lib/angular/Eventos.js"></script>
+
     </head>
     <body ng-app="starter">
 
         <nav class="white" role="navigation">
             <div class="nav-wrapper container">
-                <a id="logo-container" href="#" class="brand-logo">Logo</a>
+                <a id="logo-container" href="#" class="brand-logo" style="margin-top: 21px;"></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="#">Navbar Link</a></li>
                 </ul>
@@ -51,34 +59,23 @@
                     <li><a href="#Favoritos">Favoritos</a></li>
 
                 </ul>
-                <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="nav-mobile" class="button-collapse" style="margin-top: 10px;"><i class="material-icons">menu</i></a>
             </div>
         </nav>
 
-        <div class="container">
-            <div class="p-a">
-                <div id="cover" class="cover">
-                </div>
-                <div class="spinner">
-                    <div class="rect1"></div>
-                    <div class="rect2"></div>
-                    <div class="rect3"></div>
-                    <div class="rect4"></div>
-                    <div class="rect5"></div>
-                </div>
-            </div>
-
-        </div>
+        
         <div class="section">
             <!--   Icon Section   -->
             <div class="row" ng-view>
             </div>
         </div>
-     
-        <!--  Scripts-->
 
+        <!--  Scripts-->
         <script src="js/factory/VehiculosFactory.js"></script>
+        <script src="js/factory/FavoritosFactory.js"></script>
         <script src="js/factory/ResultadoFactory.js"></script>
+        <script src="js/controllers/buscadorCtrl.js"></script>
+        <script src="js/controllers/favoritosCtrl.js"></script>
         <script src="js/controllers/resultadoCtrl.js"></script>
         <script src="js/controllers/mapsCtrl.js"></script>
         <script src="js/controllers/vehiculosCtrl.js"></script>

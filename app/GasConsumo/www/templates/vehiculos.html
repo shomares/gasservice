@@ -1,12 +1,10 @@
-
-
-
-
 <div class="s12 m4 l2">
     <!-- Promo Content 1 goes here -->
 </div>
 <div class="col s4">
     <div id="busqueda" ng-style="displayBusqueda">
+        <h3>Búsqueda</h3>
+        <p>Seleccione los parametros para realizar la búsqueda de automoviles</p>
         <form ng-submit="findVehiculo()">
 
             <div class="list">
@@ -35,51 +33,60 @@
             </div>
 
             <div style="margin-left: 60%; text-align: right;" >
-                <button class="btn btn-primary" style="margin-bottom: 5%;" type="submit">Consultar</button>            </form>
-        <button class="btn btn-primary" style="border-color:#423e3e" type="reset">Limpiar</button>            </form>
+                <button class="button-icon" style="margin-bottom: 5%;" type="submit"><i class="material-icons">search</i></button>            
+                <button class="button-icon" style="border-color:#423e3e" type="reset"><i class="material-icons">delete</i></button>      
+
+            </div>
+        </form>
 
     </div>
-</div>
-<div id="Resultado" ng-style="displayResultado">
-    <div style="width: 100%;
-    overflow: auto;">
-        <table>
-            <thead>
-                <tr>
-                    <th>Seleccionar</th>
-                    <th>Descripcion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="vehiculo in vehiculos">
-                    <td>
-                        <input type="checkbox" class="filled-in" ng-model="vehiculo.selected" ng-change="notAll()" />
-                        <label for="filled-in-box{{vehiculo.id}}"></label>
-                    </td>
-                    <td>
-                        <p><b>{{vehiculo.nombre}}</b></p>
-                        <p><b>Marca: </b>{{vehiculo.marca}}</p>
-                        <p><b>Año: </b>{{vehiculo.ano}}</p>
-                        <p><b>Transmisión: </b>{{vehiculo.transmision}}</p>
-                        <p><b>Combustible: </b>{{vehiculo.combustible}}</p>
-                        <p><b>Rendimiento por lt: </b>{{vehiculo.rendimientoPorLitro}}</p>
-                    </td>  
-                </tr>
-            </tbody>
-        </table>   
+    <div id="Resultado" ng-style="displayResultado">
+        <p>Seleccione los vehiculos que desea agregar a favoritos</p>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="vehiculo in vehiculos">
+                            <td>
+                                <br>
+                                <input type="checkbox" id="{{vehiculo.nombre}}" ng-model="vehiculo.selected" />
+                                <label for="{{vehiculo.nombre}}"></label>
+                            </td>
+                            <td>
+                                <p><b>{{vehiculo.nombre}}</b></p>
+                                <p><b>Marca: </b>{{vehiculo.marca}}</p>
+                                <p><b>Año: </b>{{vehiculo.ano}}</p>
+                                <p><b>Transmisión: </b>{{vehiculo.transmision}}</p>
+                                <p><b>Combustible: </b>{{vehiculo.combustible}}</p>
+                                <p><b>Rendimiento por lt: </b>{{vehiculo.rendimientoPorLitro}}</p>
+                            </td>  
+                        </tr>
+                    </tbody>
+                </table>   
 
 
-        <div style="margin-left: 60%; text-align: right;" >
-            <button class="btn btn-primary" style="margin-bottom: 5%;" type="submit">Guardar</button>            </form>
-            <button class="btn btn-primary" style="border-color:#423e3e" type="button" ng-click="regresar()">Regresar</button>            </form>
-
+            </div>
         </div>
+        <div style="margin-left: 60%; text-align: right;" >
+            <button class="button-icon"   type="submit" ng-click="save()"><i class="material-icons">done</i></button>          
+            <button class="button-icon" type="button" ng-click="regresar()"><i class="material-icons">search</i></button>       
+        </div>
+
     </div>
-</div>
+
+
 </div>
 <div class="s12 m4 l2">
     <!-- Promo Content 3 goes here -->
 </div>
+
 
 
 

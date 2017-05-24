@@ -5333,15 +5333,6 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
 .modal-backdrop-bg {
   pointer-events: none; }
 
-.modal {
-  display: block;
-  position: absolute;
-  top: 0;
-  z-index: 10;
-  overflow: hidden;
-  min-height: 100%;
-  width: 100%;
-  background-color: #fff; }
 
 @media (min-width: 680px) {
   .modal {

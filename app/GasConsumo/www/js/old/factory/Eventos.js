@@ -19,11 +19,20 @@ Eventos.prototype.onEvent = function () {
         arg.apply(null, args);
     });
 }; /** * @constructor * @returns {ConEventos} */
+Eventos.prototype.clear= function(){
+     var props = Object.getOwnPropertyNames(this);
+    for (var i = 0; i < props.length; i++) {
+        if ((this[props[i]]) instanceof Eventos) 
+            this[props[i]].splice(0,this[props[i]].length );
+    }
+};
+
 function ConEventos() { }
 ConEventos.prototype.addManejadorEventos = function (nombre, funcion) {
     var props = Object.getOwnPropertyNames(this);
     for (var i = 0; i < props.length; i++) {
-        if ((this[props[i]]) instanceof Eventos && this[props[i]].name === nombre) this[props[i]].addEvent(funcion);
+        if ((this[props[i]]) instanceof Eventos && this[props[i]].name === nombre) 
+            this[props[i]].addEvent(funcion);
     }
 };
 ConEventos.HEADERERRORCONST = "X-PERROR";

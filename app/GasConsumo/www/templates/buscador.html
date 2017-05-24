@@ -1,0 +1,28 @@
+<div class="modal-body" id="naranja">
+    <div class="modal-token" style="align-items:center; height: 400px">
+        <h2>Buscar</h2>
+
+        <form ng-submit="buscar()">
+            <input type="text" ng-model="direccion" placeholder="Escribe la dirección a buscar">
+            <button type="submit" class="button-icon" style="margin-left: 60%"><i class="material-icons">search</i></button>
+        </form>
+
+        <div id="table-wrapper">
+            <div id="table-scroll" style="height: 200px;">
+                <table class="table table-condensed">
+                    <tr ng-repeat="dir in response" >
+                        <td ng-click="send(dir)" ng-class="">{{dir.formatted_address}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div ng-style="displayLoading">
+        <div class="sk-folding-cube" >
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+        </div>
+    </div>
+</div>

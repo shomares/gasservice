@@ -1,12 +1,41 @@
-var MapsCtrl = function ($scope,ResultadoFactory) {
+var MapsCtrl = function ($scope, $uibModal, ResultadoFactory) {
 
     var directionsService = new google.maps.DirectionsService();
 
+
+
+    if (window.StatusBar) {
+        StatusBar.hide();
+    }
+
     $scope.locations = new Array();
 
+    $scope.openBuscador = function () {
+        var modal = $uibModal.open({
+            keyboard: false,
+            animation: true,
+            templateUrl: "templates/buscador.html",
+            controller: 'BuscadorCtrl',
+            resolve: {
+
+            }
+        });
+
+        modal.result.then(function (args) {
+            var marker = new google.maps.Marker({
+                position: args.location,
+                map: map
+            });
+            map.setCenter(args.location);
+            map.setZoom(11);
+            $scope.locations.push(marker);
+        });
+
+
+    };
     //Tenemos el mapa
     var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: -34.397, lng: 150.644},
+        center: {lat: 19.43194, lng: -99.13306},
         scrollwheel: false,
         zoom: 8
     });
@@ -65,8 +94,18 @@ var MapsCtrl = function ($scope,ResultadoFactory) {
             directionsService.route(request, function (response, status) {
                 if (status === 'OK') {
                     directionsDisplay.setDirections(response);
-                    ResultadoFactory.clean();
-                    ResultadoFactory.setResultados(response.routes);
+                    //Mostramos los resultados en un popup
+                    var modal = $uibModal.open({
+                        keyboard: false,
+                        animation: true,
+                        templateUrl: "templates/resultados.html",
+                        controller: 'ResultadoCtrl',
+                        resolve: {
+                            data: function () {
+                                return response.routes;
+                            }
+                        }
+                    });
                 }
             });
         } else
@@ -86,15 +125,23 @@ var MapsCtrl = function ($scope,ResultadoFactory) {
         $scope.locations.push(marker);
     });
 
-
-
-
-
+    if (localStorage.getItem('vehiculos') === "" || localStorage.getItem('vehiculos') === null) {
+        alert('Seleccione al menos un vehiculo en favoritos');
+        window.location.href = "#Vehiculos";
+    } else {
+        var array = JSON.parse(localStorage.getItem('vehiculos'));
+        if (array.length === 0) {
+            alert('Seleccione al menos un vehiculo en favoritos');
+            window.location.href = "#Vehiculos";
+        }
+    }
 
 };
 
-MapsCtrl.$inject = ['$scope', 'ResultadoFactory'];
+MapsCtrl.$inject = ['$scope', '$uibModal', 'ResultadoFactory'];
 root.factory('ResultadoFactory', ResultadoFactory);
+root.controller('ResultadoCtrl', resultadoCtrl);
+root.controller('BuscadorCtrl', BuscadorCtrl);
 root.controller('MapsCtrl', MapsCtrl);
 
 

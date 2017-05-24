@@ -1,3 +1,45 @@
-<div>
-    Soy favoritos
+<div class="s12 m4 l2">
+    <!-- Promo Content 1 goes here -->
 </div>
+<div class="col s4">
+    <div id="Resultado" ng-style="displayTabla">
+        <h3>Favoritos</h3>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Descripci&oacute;n</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="vehiculo in vehiculos">
+                            <td>
+                                <input type="checkbox" id="{{vehiculo.nombre}}" ng-model="vehiculo.selectedE" />
+                                <label for="{{vehiculo.nombre}}"></label>
+                            </td>
+                            <td>
+                                <p><b>{{vehiculo.nombre}}</b></p>
+                                <p><b>Marca: </b>{{vehiculo.marca}}</p>
+                                <p><b>Año: </b>{{vehiculo.ano}}</p>
+                                <p><b>Transmisión: </b>{{vehiculo.transmision}}</p>
+                                <p><b>Combustible: </b>{{vehiculo.combustible}}</p>
+                                <p><b>Rendimiento por lt: </b>{{vehiculo.rendimientoPorLitro}}</p>
+                            </td>  
+                        </tr>
+                    </tbody>
+                </table>   
+            </div>
+        </div>
+        <div style="margin-right: 12%;text-align: right;">
+            <button class="button-icon" ng-click="eliminar()" style="border-color:#423e3e" ><i class="material-icons">delete</i></button>      
+
+        </div>
+    </div>
+
+    <div class="s12 m4 l2">
+        <!-- Promo Content 3 goes here -->
+    </div>
+
+

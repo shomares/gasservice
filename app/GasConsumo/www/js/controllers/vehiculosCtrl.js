@@ -1,6 +1,10 @@
 "use strict";
 var VehiculosCtrl = function ($scope, VehiculosFactory) {
-
+    
+    VehiculosFactory.clear();
+    if (window.StatusBar) {
+        StatusBar.show();
+    }
     $scope.displayResultado = {
         display: 'none'
     };
@@ -47,7 +51,32 @@ var VehiculosCtrl = function ($scope, VehiculosFactory) {
         $scope.displayBusqueda = {
             display: 'none'
         };
+    });
+    VehiculosFactory.addManejadorEventos("onsave", function () {
+        $scope.displayBusqueda = {
+            display: 'block'
+        };
 
+        $scope.displayLoading = {
+            display: 'none'
+        };
+        $scope.displayResultado = {
+            display: 'none'
+        };
+        alert('Se ha añadido a favoritos');
+
+    });
+    VehiculosFactory.addManejadorEventos("oneror", function (args) {
+        $scope.displayLoading = {
+            display: 'none'
+        };
+        $scope.displayBusqueda = {
+            display: 'block'
+        };
+        $scope.displayResultado = {
+            display: 'none'
+        };
+        alert(args);
 
     });
     //--------------------------------------------------------------------
@@ -88,6 +117,23 @@ var VehiculosCtrl = function ($scope, VehiculosFactory) {
 
 
     };
+
+    $scope.save = function () {
+
+        var elementos = new Array();
+        for (var elemento in $scope.vehiculos) {
+            if ($scope.vehiculos[elemento].selected)
+                elementos.push($scope.vehiculos[elemento]);
+        }
+
+        if (elementos.length > 0) {
+            $scope.displayLoading = {
+                display: 'block'
+            };
+            VehiculosFactory.save(elementos);
+        }
+    };
+
 
     VehiculosFactory.loadMarcas();
 };

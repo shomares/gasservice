@@ -8,13 +8,15 @@ var VehiculosService = function ($http) {
     this.onloadSubMarcas = new Eventos("onloadSubMarcas");
     this.onloadAno = new Eventos("onloadAno");
     this.onloadPrederteminado = new Eventos("onloadPrederteminado");
-    this.onloadVehiculos= new Eventos("onloadVehiculos");
-    this.onerror = new Eventos();
+    this.onloadVehiculos = new Eventos("onloadVehiculos");
+    this.onerror = new Eventos("oneror");
+    this.config = Setting.getInstance();
+    this.onsave = new Eventos("onsave");
 };
 VehiculosService.prototype = new ConEventos();
 VehiculosService.prototype.loadMarcas = function () {
     var root = this;
-    root.$http.get('https://gasservice-emejia.rhcloud.com/Catalogos/Marcas').then(function (args) {
+    root.$http.get(root.config.url + '/Catalogos/Marcas').then(function (args) {
         if (args.status === 200)
             root.onloadMarcas.onEvent(args.data);
         else
@@ -25,7 +27,7 @@ VehiculosService.prototype.loadMarcas = function () {
 };
 VehiculosService.prototype.loadAno = function (marca, subModelo) {
     var root = this;
-    root.$http.get('https://gasservice-emejia.rhcloud.com/Catalogos/AnoModelo?marca=' + marca + '&subModelo=' + subModelo).then(function (args) {
+    root.$http.get(root.config.url + '/Catalogos/AnoModelo?marca=' + marca + '&subModelo=' + subModelo).then(function (args) {
         if (args.status === 200)
             root.onloadAno.onEvent(args.data);
         else
@@ -36,7 +38,7 @@ VehiculosService.prototype.loadAno = function (marca, subModelo) {
 };
 VehiculosService.prototype.loadSubMarcas = function (marca) {
     var root = this;
-    root.$http.get('https://gasservice-emejia.rhcloud.com/Catalogos/SubModelos?marca=' + marca).then(function (args) {
+    root.$http.get(root.config.url + '/Catalogos/SubModelos?marca=' + marca).then(function (args) {
         if (args.status === 200)
             root.onloadSubMarcas.onEvent(args.data);
         else
@@ -48,7 +50,7 @@ VehiculosService.prototype.loadSubMarcas = function (marca) {
 
 VehiculosService.prototype.loadVehiculos = function (marca, subModelo, ano) {
     var root = this;
-    root.$http.get('http://gasservice-emejia.rhcloud.com/Catalogos/Vehiculos?marca=' + marca+ '&subModelo='  + subModelo + '&ano=' + ano).then(function (args) {
+    root.$http.get(root.config.url + '/Catalogos/Vehiculos?marca=' + marca + '&subModelo=' + subModelo + '&ano=' + ano).then(function (args) {
         if (args.status === 200)
             root.onloadVehiculos.onEvent(args.data);
         else
@@ -59,7 +61,9 @@ VehiculosService.prototype.loadVehiculos = function (marca, subModelo, ano) {
 
 };
 
-VehiculosService.prototype.save = function (vehiculo) {
+VehiculosService.prototype.save = function (vehiculosA) {
+    var root = this;
+    var error = false;
     //Si funciona localStorage
     if (localStorage !== undefined) {
         var vehiculos = localStorage.getItem('vehiculos');
@@ -67,7 +71,24 @@ VehiculosService.prototype.save = function (vehiculo) {
             vehiculos = JSON.parse(vehiculos);
         else
             vehiculos = new Array();
-        vehiculos.push(vehiculo);
+        for (var item in vehiculosA) {
+            for (var jitem in vehiculos) {
+                if (vehiculosA[item].nombre === vehiculos[jitem].nombre)
+                {
+                    root.onerror.onEvent('Ya se agrego a favoritos');
+                    error = true;
+                    break;
+                }
+            }
+            if (!error){
+                vehiculos.push(vehiculosA[item]);
+            }else
+                break;
+        }
+        if (!error) {
+            localStorage.setItem("vehiculos", JSON.stringify(vehiculos));
+            root.onsave.onEvent();
+        }
     }
 };
 VehiculosService.prototype.getVehiculoPredeterminado = function () {
