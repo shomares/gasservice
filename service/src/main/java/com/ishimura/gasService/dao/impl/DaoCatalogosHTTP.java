@@ -176,7 +176,7 @@ public class DaoCatalogosHTTP implements IDaoCatalogo {
 						return vehiculo;
 					}
 					
-				}, "tabla_ecoetiqEF", "tabla_ecoetiqGH");
+				}, "tabla_ecoetiqEF", "tabla_ecoetiqGH", "tabla_ecoetiqIJ", "tabla_ecoetiqNO", "tabla_ecoetiqLM", "tabla_ecoetiqPQ");
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
