@@ -1,7 +1,18 @@
-var MapsCtrl = function ($scope, $uibModal, ResultadoFactory) {
+var MapsCtrl = function ($scope, $uibModal, ResultadoFactory, GasolinaFactory) {
 
     var directionsService = new google.maps.DirectionsService();
 
+
+    var infowindow = new google.maps.InfoWindow();
+
+    GasolinaFactory.clear();
+
+    //Tenemos el mapa
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 19.43194, lng: -99.13306},
+        scrollwheel: false,
+        zoom: 8
+    });
 
 
     if (window.StatusBar) {
@@ -9,6 +20,45 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory) {
     }
 
     $scope.locations = new Array();
+    $scope.gasLocations = new Array();
+    $scope.dataGas = new Array();
+
+    //Setear las gasolinas
+    GasolinaFactory.addManejadorEventos("onCargaGasolineras", function (args) {
+        var lat = {lat: args.loc[1], lng: args.loc[0]};
+        var marker = new google.maps.Marker({
+            position: lat,
+            map: map,
+            icon: "css/fillingstation.png",
+            title: args.id+ ""
+
+        });
+        marker.setMap(map);
+        //Eventos para InfoWindow----
+        marker.addListener('click', function () {
+            GasolinaFactory.getInfo(marker.title, function (gas, args) {
+                var data = new Array();
+                data.push("<div>")
+                data.push("<p>" + gas.brad + "</p>")
+                data.push("<table>");
+                for (var i = 0; i < args.length; i++) {
+                    var info= args[i];    
+                    data.push("<tr>");
+                    data.push("<td>" + info.type+ "</td>");
+                    data.push("<td>" + info.valor.toFixed(2) + "</td>");
+                    data.push("</tr>");
+                }
+                data.push("</table>");
+                data.push("</div>");
+                infowindow.setContent(data.join(""));
+                infowindow.open(map, marker);
+            });
+        });
+
+
+        $scope.gasLocations.push(marker);
+    });
+
 
     $scope.openBuscador = function () {
         var modal = $uibModal.open({
@@ -28,17 +78,19 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory) {
             });
             map.setCenter(args.location);
             map.setZoom(11);
+
+
+            if ($scope.locations.length === 0)
+                GasolinaFactory.loadGasolineras(args.location);
+
             $scope.locations.push(marker);
+
+
         });
 
 
     };
-    //Tenemos el mapa
-    var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 19.43194, lng: -99.13306},
-        scrollwheel: false,
-        zoom: 8
-    });
+
     var directionsDisplay = new google.maps.DirectionsRenderer();
     directionsDisplay.setMap(map);
 
@@ -63,7 +115,11 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory) {
         for (var i = 0; i < $scope.locations.length; i++) {
             $scope.locations[i].setMap(null);
         }
+        for (var i = 0; i < $scope.gasLocations.length; i++) {
+            $scope.gasLocations[i].setMap(null);
+        }
         $scope.locations = new Array();
+        $scope.gasLocations = new Array();
         directionsDisplay.setMap(null);
 
     };
@@ -122,6 +178,11 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory) {
             position: location,
             map: map
         });
+
+        //Es el primero
+        if ($scope.locations.length === 0)
+            GasolinaFactory.loadGasolineras(location);
+
         $scope.locations.push(marker);
     });
 
@@ -138,8 +199,9 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory) {
 
 };
 
-MapsCtrl.$inject = ['$scope', '$uibModal', 'ResultadoFactory'];
+MapsCtrl.$inject = ['$scope', '$uibModal', 'ResultadoFactory', 'GasolinaFactory'];
 root.factory('ResultadoFactory', ResultadoFactory);
+root.factory('GasolinaFactory', GasolinaFactory);
 root.controller('ResultadoCtrl', resultadoCtrl);
 root.controller('BuscadorCtrl', BuscadorCtrl);
 root.controller('MapsCtrl', MapsCtrl);
