@@ -150,23 +150,18 @@
 		</dependency>
 
 
-	<!-- json doc -->
-		<dependency>
-			<groupId>org.jsondoc</groupId>
-			<artifactId>jsondoc-springmvc</artifactId>
-			<version>1.1.16</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.javassist</groupId>
-					<artifactId>javassist</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.jsondoc</groupId>
-			<artifactId>jsondoc-ui-webjar</artifactId>
-			<version>1.1.3</version>
-		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+		  <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.1</version>
+        </dependency>
+
 
 	</dependencies>
 	<build>

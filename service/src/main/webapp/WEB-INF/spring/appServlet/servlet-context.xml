@@ -32,37 +32,38 @@
 	<beans:bean name="factory"
 		class="com.ishimura.gasService.MongoDB.MongoFactory" scope="singleton">
 		<beans:property name="dbName" value="gasservice"></beans:property>
-		<!--  PRODUCCION-->
+		<!-- PRODUCCION 
 		<beans:property name="host" value="${OPENSHIFT_MONGODB_DB_HOST}"></beans:property>
 		<beans:property name="port" value="${OPENSHIFT_MONGODB_DB_PORT}"></beans:property>
 		<beans:property name="pass" value="${OPENSHIFT_MONGODB_DB_PASSWORD}"></beans:property>
 		<beans:property name="user" value="${OPENSHIFT_MONGODB_DB_USERNAME}"></beans:property>
-		 <!-- Localhost
-		<beans:property name="host" value="localhost"></beans:property>
-		<beans:property name="port" value="111"></beans:property>
-		 -->
-	</beans:bean>
-
-
-
-	<beans:bean id="documentationController" class="org.jsondoc.springmvc.controller.JSONDocController">
-		<beans:constructor-arg name="version" value="1.0" />
-		<!-- Localhost 
-		<beans:constructor-arg name="basePath" value="http://localhost:8080/gasService/Catalogos" />
 		-->
-		<!-- Produccion -->
-		<beans:constructor-arg name="basePath" value="http://gasservice-emejia.rhcloud.com/Catalogos" />
-		
-		<beans:constructor-arg name="packages">
-			<beans:list>
-				<beans:value>com.ishimura.gasService</beans:value> <!-- packages in which you have your spring controllers -->
-				<beans:value>com.ishimura.gasService.dto</beans:value> <!-- packages in which you have your objects -->
-			</beans:list>
-		</beans:constructor-arg>
-		<beans:property name="playgroundEnabled" value="true" /> <!-- optional -->
-		<beans:property name="displayMethodAs" value="URI" /> <!-- optional -->
+		<!-- Localhost-->
+		 <beans:property name="host" value="localhost"></beans:property> 
+			<beans:property name="port" value="27017"></beans:property> 
 	</beans:bean>
 
+	<beans:bean name="URLOriginGasolina" class="java.net.URL">
+		<beans:constructor-arg
+			value="https://publicacionexterna.azurewebsites.net/publicaciones/places"></beans:constructor-arg>
+	</beans:bean>
+	
+	<beans:bean name="URLOriginPrecio" class="java.net.URL">
+		<beans:constructor-arg
+			value="https://publicacionexterna.azurewebsites.net/publicaciones/prices"></beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="ContextGasolina" class="javax.xml.bind.JAXBContext"
+		factory-method="newInstance">
+		<beans:constructor-arg index="0" value="com.ishimura.gasService.dto.Gasolinera">
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="ContextPrecio" class="javax.xml.bind.JAXBContext"
+		factory-method="newInstance">
+		<beans:constructor-arg index="0" value="com.ishimura.gasService.dto.Gasolinera.Precios">
+		</beans:constructor-arg>
+	</beans:bean>
 
 	<context:component-scan
 		base-package="com.ishimura.gasService,com.ishimura.gasService.dao.impl" />

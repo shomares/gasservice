@@ -2,20 +2,17 @@ package com.ishimura.gasService;
 
 import java.util.List;
 
-import org.jsondoc.core.annotation.Api;
-import org.jsondoc.core.annotation.ApiAuthNone;
-import org.jsondoc.core.annotation.ApiMethod;
-import org.jsondoc.core.annotation.ApiQueryParam;
-import org.jsondoc.core.annotation.ApiVersion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.ishimura.gasService.dao.IDaoCatalogo;
@@ -25,9 +22,6 @@ import com.ishimura.gasService.dto.SubModelo;
 import com.ishimura.gasService.dto.Vehiculo;
 
 
-@Api(name = "Servicio Consumo de Gasolina", description = "Consulta para obtener el rendimiento de gasolina segun el vehiculo")
-@ApiVersion(since = "1.0", until = "2.12")
-@ApiAuthNone
 @Controller
 @RequestMapping(value = "/Catalogos")
 public class CatalogoController {
@@ -36,11 +30,12 @@ public class CatalogoController {
 	@Qualifier("DaoCatalogos")
 	private IDaoCatalogo DaoCatalogo;
 
-	@ApiMethod
-	@RequestMapping(value = "/Marcas", method = RequestMethod.GET)
+	@ResponseBody
+	@RequestMapping(value = "/Marcas", method = RequestMethod.GET, produces = "application/json")
 	public ResponseEntity<List<Marca>> getMarcas() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Allow-Origin", "*");
+		headers.setContentType(MediaType.APPLICATION_JSON);
 		ResponseEntity<List<Marca>> salida = null;
 		List<Marca> modelo = DaoCatalogo.getMarcas();
 
@@ -53,10 +48,9 @@ public class CatalogoController {
 		return salida;
 	}
 
-	@ApiMethod(description="Consulta los submodelos segun la marca")
 	@RequestMapping(value = "/SubModelos", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<List<SubModelo>> getSubmodelo(@ApiQueryParam(description = "Id de la marca de vehiculos") @RequestParam String marca) {
+	public ResponseEntity<List<SubModelo>> getSubmodelo( @RequestParam String marca) {
 		ResponseEntity<List<SubModelo>> salida = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Allow-Origin", "*");
@@ -71,10 +65,9 @@ public class CatalogoController {
 		return salida;
 	}
 
-	@ApiMethod(description="Consulta los anos de los submodelos segun la marca")
 	@RequestMapping(value = "/AnoModelo", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<List<Ano>> getAnoSubmodelo(@ApiQueryParam(description = "Id de la marca de vehiculos") @RequestParam String marca, @ApiQueryParam(description = "Nombre del submodelo de los vehiculos") @RequestParam String subModelo) {
+	public ResponseEntity<List<Ano>> getAnoSubmodelo( @RequestParam String marca, @RequestParam String subModelo) {
 		ResponseEntity<List<Ano>> salida = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Allow-Origin", "*");
@@ -88,10 +81,9 @@ public class CatalogoController {
 		return salida;
 	}
 	
-	@ApiMethod(description="Consulta el rendimiento del vehiculo")
 	@RequestMapping(value = "/Vehiculos", method = RequestMethod.GET)
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<List<Vehiculo>> getVehiculos(@ApiQueryParam(description = "Id de la marca de vehiculos")  @RequestParam String marca, @ApiQueryParam(description = "Nombre del submodelo de los vehiculos") @RequestParam String subModelo, @ApiQueryParam(description = "Ano de los submodelo de los vehiculos")@RequestParam String ano) {
+	public ResponseEntity<List<Vehiculo>> getVehiculos(@RequestParam String marca,  @RequestParam String subModelo, @RequestParam String ano) {
 		ResponseEntity<List<Vehiculo>> salida = null;
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Allow-Origin", "*");
