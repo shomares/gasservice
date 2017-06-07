@@ -9,9 +9,9 @@ import com.ishimura.gasService.dto.Gasolinera.Places;
 import com.ishimura.gasService.dto.Gasolinera.Precios.Precio;
 
 public interface IDaoGasolinera {
-	 void getAllPlaces();
-	 List<GasolineraDTO>  findGasolineras(Float x, Float y);
-	 List<PrecioDTO> getPrecio(Integer idGasolinera);
-	 void getAllPrecio();
+	 void getAllPlaces() throws Exception;
+	 List<GasolineraDTO>  findGasolineras(Float x, Float y)throws Exception;
+	 List<PrecioDTO> getPrecio(Integer idGasolinera) throws Exception;
+	 void getAllPrecio() throws Exception;
 	 
 }

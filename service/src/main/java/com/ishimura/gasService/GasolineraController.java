@@ -25,36 +25,40 @@ public class GasolineraController {
 	@Qualifier("DaoGasolinera")
 	private IDaoGasolinera dao;
 
-	
-
 	@RequestMapping(value = "/FindGasolineras", method = RequestMethod.GET)
 	public ResponseEntity<List<GasolineraDTO>> findByLocation(Float x, Float y) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Allow-Origin", "*");
 		ResponseEntity<List<GasolineraDTO>> salida = null;
-		List<GasolineraDTO> modelo = dao.findGasolineras(x, y);
+		try {
+			List<GasolineraDTO> modelo = dao.findGasolineras(x, y);
 
-		if (modelo == null) {
-			salida = new ResponseEntity<List<GasolineraDTO>>(null, headers, HttpStatus.NOT_FOUND);
-		} else {
-			salida = new ResponseEntity<List<GasolineraDTO>>(modelo, headers, HttpStatus.OK);
+			if (modelo == null) {
+				salida = new ResponseEntity<List<GasolineraDTO>>(null, headers, HttpStatus.NOT_FOUND);
+			} else {
+				salida = new ResponseEntity<List<GasolineraDTO>>(modelo, headers, HttpStatus.OK);
+			}
+		} catch (Exception ex) {
+			salida = new ResponseEntity<List<GasolineraDTO>>(null, headers, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return salida;
 
 	}
-
-	
 
 	@RequestMapping(value = "/FindPrecio", method = RequestMethod.GET)
 	public ResponseEntity<List<PrecioDTO>> findByPrice(Integer idGasolinera) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Control-Allow-Origin", "*");
 		ResponseEntity<List<PrecioDTO>> salida = null;
-		List<PrecioDTO> modelo = dao.getPrecio(idGasolinera);
-		if (modelo == null) {
-			salida = new ResponseEntity<List<PrecioDTO>>(null, headers, HttpStatus.NOT_FOUND);
-		} else {
-			salida = new ResponseEntity<List<PrecioDTO>>(modelo, headers, HttpStatus.OK);
+		try {
+			List<PrecioDTO> modelo = dao.getPrecio(idGasolinera);
+			if (modelo == null) {
+				salida = new ResponseEntity<List<PrecioDTO>>(null, headers, HttpStatus.NOT_FOUND);
+			} else {
+				salida = new ResponseEntity<List<PrecioDTO>>(modelo, headers, HttpStatus.OK);
+			}
+		} catch (Exception ex) {
+			salida = new ResponseEntity<List<PrecioDTO>>(null, headers, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return salida;
 
