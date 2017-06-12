@@ -13,12 +13,12 @@ var GasolinaService = function ($http) {
 GasolinaService.prototype = new ConEventos();
 
 
-GasolinaService.prototype.loadGasolineras = function (location) {
+GasolinaService.prototype.loadGasolineras = function (location, marker) {
     var root = this;
     root.$http.get(root.config.url + '/Gasolinera/FindGasolineras?x=' + location.lng() + '&y=' + location.lat()).then(function (args) {
         root.cache= args.data;
         args.data.forEach(function (arg) {
-            root.onCargaGasolineras.onEvent(arg);
+            root.onCargaGasolineras.onEvent(arg, marker);
         });
     });
 };

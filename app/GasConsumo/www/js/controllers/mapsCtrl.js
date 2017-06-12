@@ -23,14 +23,39 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory, GasolinaFactory) {
     $scope.gasLocations = new Array();
     $scope.dataGas = new Array();
 
+    $scope.setMarker = function (location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+
+        //Es el primero
+        if ($scope.locations.length === 0) {
+            GasolinaFactory.loadGasolineras(location, marker);
+        }
+        $scope.locations.push(marker);
+
+
+
+        marker.addListener('click', function () {
+            var index = 0;
+            for (var i = 0; i < $scope.locations.length; i++) {
+                if (marker === $scope.locations[i]) {
+                    $scope.locations[i].setMap(null);
+                    index = i;
+                }
+            }
+            $scope.locations.splice(index, 1);
+        });
+    };
     //Setear las gasolinas
-    GasolinaFactory.addManejadorEventos("onCargaGasolineras", function (args) {
+    GasolinaFactory.addManejadorEventos("onCargaGasolineras", function (args, mark) {
         var lat = {lat: args.loc[1], lng: args.loc[0]};
         var marker = new google.maps.Marker({
             position: lat,
             map: map,
             icon: "css/fillingstation.png",
-            title: args.id+ ""
+            title: args.id + ""
 
         });
         marker.setMap(map);
@@ -42,9 +67,9 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory, GasolinaFactory) {
                 data.push("<p>" + gas.brad + "</p>")
                 data.push("<table>");
                 for (var i = 0; i < args.length; i++) {
-                    var info= args[i];    
+                    var info = args[i];
                     data.push("<tr>");
-                    data.push("<td>" + info.type+ "</td>");
+                    data.push("<td>" + info.type + "</td>");
                     data.push("<td>" + info.valor.toFixed(2) + "</td>");
                     data.push("</tr>");
                 }
@@ -54,8 +79,6 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory, GasolinaFactory) {
                 infowindow.open(map, marker);
             });
         });
-
-
         $scope.gasLocations.push(marker);
     });
 
@@ -72,20 +95,7 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory, GasolinaFactory) {
         });
 
         modal.result.then(function (args) {
-            var marker = new google.maps.Marker({
-                position: args.location,
-                map: map
-            });
-            map.setCenter(args.location);
-            map.setZoom(11);
-
-
-            if ($scope.locations.length === 0)
-                GasolinaFactory.loadGasolineras(args.location);
-
-            $scope.locations.push(marker);
-
-
+            $scope.setMarker(args.location);
         });
 
 
@@ -99,8 +109,7 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory, GasolinaFactory) {
     $scope.localizar = function () {
         var panPoint = null;
         navigator.geolocation.getCurrentPosition(function (position) {
-            panPoint = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-            map.setCenter(panPoint);
+                $scope.setMarker(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
         }, function () {
             alert('No se ha podido localizar la posición');
             if ($scope.locations.length === 0) {
@@ -174,16 +183,7 @@ var MapsCtrl = function ($scope, $uibModal, ResultadoFactory, GasolinaFactory) {
 
     google.maps.event.addListener(map, 'click', function (event) {
         var location = event.latLng;
-        var marker = new google.maps.Marker({
-            position: location,
-            map: map
-        });
-
-        //Es el primero
-        if ($scope.locations.length === 0)
-            GasolinaFactory.loadGasolineras(location);
-
-        $scope.locations.push(marker);
+        $scope.setMarker(location);
     });
 
     if (localStorage.getItem('vehiculos') === "" || localStorage.getItem('vehiculos') === null) {
