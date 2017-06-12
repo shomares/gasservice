@@ -111,7 +111,7 @@ public abstract class DaoGasolinerasMongoDB implements IDaoGasolinera {
 				Document geometry = (Document) localizacion.get("geometry");
 				Document properties = (Document) localizacion.get("properties");
 				GasolineraDTO dto = new GasolineraDTO();
-				dto.setBrad(objeto.getString("brad"));
+				dto.setBrad(objeto.getString("name"));
 				dto.setCreID(objeto.getString("creId"));
 				dto.setId(objeto.getInteger("id"));
 				@SuppressWarnings("unchecked")
