@@ -20,6 +20,7 @@
         <link href="css/materialize.css" rel="stylesheet">
         <link href="lib/ionic/css/ionic.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+        <link href="css/site.css" rel="stylesheet"> 
          <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -44,7 +45,7 @@
         <script src="lib/angular/Eventos.js"></script>
 
     </head>
-    <body ng-app="starter">
+    <body ng-app="starter" ng-controller="MenuCtrl">
 
         <nav class="white" role="navigation">
             <div class="nav-wrapper container">
@@ -54,9 +55,9 @@
                 </ul>
 
                 <ul id="nav-mobile" class="side-nav">
-                    <li><a href="#Mapa">Mapa</a></li>
-                    <li><a href="#Vehiculos">Buscar vehiculos</a></li>
-                    <li><a href="#Favoritos">Favoritos</a></li>
+                    <li><a  href="#Mapa" on-release="onClose()" >Mapa</a></li>
+                    <li><a href="#Vehiculos" on-release="onClose()">Buscar vehiculos</a></li>
+                    <li><a href="#Favoritos" on-release="onClose()">Favoritos</a></li>
 
                 </ul>
                 <a href="#" data-activates="nav-mobile" class="button-collapse" style="margin-top: 10px;"><i class="material-icons">menu</i></a>
@@ -75,6 +76,7 @@
         <script src="js/factory/VehiculosFactory.js"></script>
         <script src="js/factory/FavoritosFactory.js"></script>
         <script src="js/factory/ResultadoFactory.js"></script>
+        <script src="js/controllers/menuCtrl.js"></script>
         <script src="js/controllers/buscadorCtrl.js"></script>
         <script src="js/controllers/favoritosCtrl.js"></script>
         <script src="js/controllers/resultadoCtrl.js"></script>

@@ -8,7 +8,7 @@ var resultadoCtrl = function ($scope, data, ResultadoFactory) {
     }
     
     $scope.result = {
-        tiempo: legs[0].duration.text,
+        tiempo: Math.round( sumatotal.duracion / 60 )+' minutos',
         distancia: Math.round10(sumatotal.distancia/1000,-3)+ " km",
         distanciaMetros: sumatotal.distancia,
         tiempoReal: sumatotal.duracion

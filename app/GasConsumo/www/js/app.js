@@ -15,6 +15,15 @@ root.run(function ($ionicPlatform) {
 
         }
 
+        $ionicPlatform.registerBackButtonAction(function (event) {
+            if (true) { // your check here
+                
+                var r = confirm("¿Esta seguro que desea salir?");
+                if(r===true){
+                        ionic.Platform.exitApp();
+                }
+            }
+        }, 100);
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
             StatusBar.backgroundColorByHexString('#26a69a');
@@ -42,7 +51,7 @@ root.config(function ($routeProvider) {
             templateUrl: "templates/vehiculos.html",
             controller: "VehiculosCtrl"
         });
-        
+
     } else {
 
         var array = JSON.parse(localStorage.getItem('vehiculos'));

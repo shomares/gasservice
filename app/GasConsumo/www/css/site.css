@@ -1,0 +1,56 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11/06/2017, 04:21:27 PM
+    Author     : root
+*/
+
+
+/*Landscape*/
+@media only screen and (max-height: 300px) and (min-height: 100px) {
+    .menuButton {
+        z-index: 100;
+        position: absolute;
+        margin-top: 15%;
+    }
+}
+
+
+@media only screen and (max-height: 360px) and (min-height: 300px) {
+    .menuButton {
+        z-index: 100;
+        position: absolute;
+        margin-top: 25%;
+    }
+}
+
+
+@media only screen and (max-height: 420px) and (min-height: 360px) {
+    .menuButton {
+        z-index: 100;
+        position: absolute;
+        margin-top: 35%;
+    }
+}
+
+/*Potrait*/
+
+
+@media only screen and  (min-height: 490px) and (min-height: 420px)  {
+    .menuButton {
+        z-index: 100;
+        position: absolute;
+        margin-top: 120%;
+    }
+}
+
+@media only screen and  (min-height: 580px) and (min-height: 500px)  {
+    .menuButton {
+        z-index: 100;
+        position: absolute;
+        margin-top: 115%;
+    }
+}
